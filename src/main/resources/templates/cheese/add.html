@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title th:text="${title}">Title</title>
-    <!-- ${title} to render the title in model.addAttribute()-->
+<head th:replace="fragments::head">
+    <!--<meta charset="UTF-8"/>-->
+    <!--<title th:text="${title}">Title</title>-->
+    <!--&lt;!&ndash; ${title} to render the title in model.addAttribute()&ndash;&gt;-->
 </head>
 <body>
 <h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments:: navigation"></nav>
+
 <form method="post">
-    <input type="text" name="cheeseName"/>
+    <label>Cheese name
+        <input type="text" name="cheeseName"/>
+    </label>
+    <label>Cheese Description
+        <input type="text" name="cheeseDescription"/>
+    </label>
     <input type="submit" value="Add Cheese"/>
 </form>
 </body>

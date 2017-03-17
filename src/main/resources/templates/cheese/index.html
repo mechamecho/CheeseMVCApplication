@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title th:text="${title}">Title</title>
-    <!-- ${title} to render the title in model.addAttribute()-->
+<head th:replace="fragments::head">
+
+    <!--since we are replacing it with the head from fragments.html-->
+    <!--<meta charset="UTF-8"/>-->
+    <!--<title th:text="${title}">Title</title>-->
+    <!--&lt;!&ndash; ${title} to render the title in model.addAttribute()&ndash;&gt;-->
 </head>
 <body>
 <h1 th:text="${title}">Default Title</h1>
-<a href="/cheese/add">Add Cheese!</a>
-<p th:unless="${cheeses} and ${cheeses.size()}">no cheese :(((</p>
 
-<ul>
-    <li th:each="cheese : ${cheeses}" th:text="${cheese}"></li>
-</ul>
+<nav th:replace="fragments:: navigation"></nav>
+
+<!--<a href="/cheese/add">Add Cheese!</a>-->
+<p th:unless="${cheeses} and ${cheeses.size()}">no cheese :(((</p>
+<table cellspacing="30">
+    <tr>
+        <th th:if="${cheeses} and ${cheeses.size()}">
+         Cheese
+        </th>
+        <th th:if="${cheeses} and ${cheeses.size()}">
+         Description
+        </th>
+    </tr>
+    <tr th:each="cheese:${cheeses}">
+        <td th:text="${cheese.key}">
+
+        </td>
+        <td th:text="${cheese.value}">
+
+        </td>
+    </tr>
+</table>
+<!--<ul>-->
+    <!--<li th:each="cheese : ${cheeses}" th:text="${cheese}"></li>-->
+<!--</ul>-->
 
 </body>
 </html>

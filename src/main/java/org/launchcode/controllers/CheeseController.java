@@ -30,18 +30,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
  * Created by Engineer on 3/9/2017.
  */
-@Controller
-@RequestMapping("cheese")
 
 //Request Path=cheese
+@Controller
+@RequestMapping("cheese")
 public class CheeseController {
     //had to move the Array here, to be able to access it in the processAddCheeseForm method
-    static ArrayList<String> cheeses=new ArrayList<>();
+//    private ArrayList<String> cheeses=new ArrayList<>();
+    private Map<String, String> cheeses=new HashMap<>();
 
     @RequestMapping(value="")
     //@ResponseBody had to remove it because we are using a template
@@ -53,6 +57,7 @@ public class CheeseController {
 //        cheeses.add("munster"); removed since we want to add it from the form
 
         model.addAttribute("cheeses", cheeses);
+
         model.addAttribute("title", "My Cheeses");
         return "cheese/index";
 
@@ -66,8 +71,8 @@ public class CheeseController {
     }
 //RequestMethod is very important if you have two handlers at the same directory
     @RequestMapping(value="add", method=RequestMethod.POST)
-    public String processAddCheeseForm(@RequestParam String cheeseName){
-        cheeses.add(cheeseName);
+    public String processAddCheeseForm(@RequestParam String cheeseName,@RequestParam String cheeseDescription){
+        cheeses.put(cheeseName, cheeseDescription);
         //redirect to /cheese (RequestMapping of the controller)
       return "redirect:";
     }
