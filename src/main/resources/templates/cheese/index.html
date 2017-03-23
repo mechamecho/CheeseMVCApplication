@@ -14,9 +14,9 @@
 
 <!--<a href="/cheese/add">Add Cheese!</a>-->
 <p th:unless="${cheeses} and ${cheeses.size()}">no cheese :(((</p>
-<table cellspacing="30">
+<table cellspacing="100">
     <tr>
-        <th th:if="${cheeses} and ${cheeses.size()}">
+        <th th:if="${cheeses} and ${cheeses.size()}" width="100 px">
          Cheese
         </th>
         <th th:if="${cheeses} and ${cheeses.size()}">
@@ -24,10 +24,13 @@
         </th>
     </tr>
     <tr th:each="cheese:${cheeses}">
-        <td th:text="${cheese.key}">
+        <td th:text="${cheese.name}">
+            //thymeleaf will call the getter for
+            //those private fields
 
         </td>
-        <td th:text="${cheese.value}">
+
+        <td th:text="${cheese.description}">
 
         </td>
     </tr>
