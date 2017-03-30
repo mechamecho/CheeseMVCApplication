@@ -12,11 +12,11 @@
 <p th:unless="${cheeses} and ${cheeses.size()}">no cheese :(((</p>
 
 <table cellspacing="100">
-    <tr>
-        <th th:if="${cheeses} and ${cheeses.size()}" width="100 px">
+    <tr th:if="${cheeses} and ${cheeses.size()}">
+        <th width="100 px">
          Cheese
         </th>
-        <th th:if="${cheeses} and ${cheeses.size()}" width="100 px">
+        <th  width="100 px">
          Description
         </th>
         <th width="100 px">
