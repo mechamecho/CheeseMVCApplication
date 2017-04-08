@@ -13,7 +13,7 @@
 
 <table cellspacing="100">
     <tr th:if="${cheeses} and ${cheeses.size()}">
-        <th width="100 px">
+        <th th:if="${cheeses} and ${cheeses.size()}" width="100 px">
          Cheese
         </th>
         <th  width="100 px">

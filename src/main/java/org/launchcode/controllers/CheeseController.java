@@ -8,6 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.launchcode.models.Cheese;
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 
 /**
@@ -34,6 +35,7 @@ public class CheeseController {
 
 
         model.addAttribute("title", "Add Cheese");
+
         model.addAttribute(new Cheese());
         //because the new Cheese attribute can only hold one cheese type, so we
         // had to provide the Array to the view
@@ -60,6 +62,7 @@ public class CheeseController {
          */
 
       CheeseData.add(newCheese);
+      ArrayList<Cheese> debug = CheeseData.getAll();
       return "redirect:";
     }
 
@@ -79,21 +82,29 @@ public class CheeseController {
         return "redirect:";
     }
     @RequestMapping(value="edit/{cheeseId}", method=RequestMethod.GET)
-    public String displayEditForm(Model model, @PathVariable("cheeseId") int cheeseId){
-        Cheese cheese=CheeseData.getById(cheeseId);
+    public String displayEditForm(Model model, @PathVariable int cheeseId){
         model.addAttribute("title","edit cheese");
-        model.addAttribute("cheese", cheese);
+        model.addAttribute("cheese",CheeseData.getById(cheeseId));
+        model.addAttribute("CheeseTypes", CheeseType.values());
         return "cheese/edit";
     }
     @RequestMapping(value="edit/{cheeseId}", method=RequestMethod.POST)
-    public String processEditForm(Model model,
-                                  @PathVariable("cheeseId") int cheeseId,@RequestParam("name") String name,
+    public String processEditForm(Model model,@ModelAttribute @Valid Cheese editedCheese,Errors errors,
+                                  @RequestParam("name")String name,
                                   @RequestParam("description") String description) {
 
-        Cheese cheese = CheeseData.getById(cheeseId);
-        cheese.setName(name);
-        cheese.setDescription(description);
-        return "redirect:..";
+
+        if (errors.hasErrors()){
+            model.addAttribute("title","edit cheese");
+            model.addAttribute("cheeseTypes", CheeseType.values());
+            return "cheese/edit";
+        }
+//
+//        CheeseData.remove(editedCheese.getCheeseId());
+//        CheeseData.add(editedCheese);
+        editedCheese.setName(name);
+        editedCheese.setDescription(description);
+        return "cheese/index";
     }
 
 
