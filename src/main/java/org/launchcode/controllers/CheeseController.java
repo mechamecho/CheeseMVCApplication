@@ -84,12 +84,13 @@ public class CheeseController {
     @RequestMapping(value="edit/{cheeseId}", method=RequestMethod.GET)
     public String displayEditForm(Model model, @PathVariable int cheeseId){
         model.addAttribute("title","edit cheese");
-        model.addAttribute("cheese",CheeseData.getById(cheeseId));
+        Cheese editedCheese=CheeseData.getById(cheeseId);
+        model.addAttribute("cheese",editedCheese);
         model.addAttribute("CheeseTypes", CheeseType.values());
         return "cheese/edit";
     }
     @RequestMapping(value="edit/{cheeseId}", method=RequestMethod.POST)
-    public String processEditForm(Model model,@ModelAttribute @Valid Cheese editedCheese,Errors errors,
+    public String processEditForm(Model model, @Valid Cheese editedCheese,Errors errors,
                                   @RequestParam("name")String name,
                                   @RequestParam("description") String description) {
 
@@ -104,7 +105,7 @@ public class CheeseController {
 //        CheeseData.add(editedCheese);
         editedCheese.setName(name);
         editedCheese.setDescription(description);
-        return "cheese/index";
+        return "redirect:/cheese";
     }
 
 
